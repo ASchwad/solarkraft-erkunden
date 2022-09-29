@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/solarkraft-erkunden/static/css/main.06f9f1cd.css",
+    "main.js": "/solarkraft-erkunden/static/js/main.40a0323e.js",
+    "static/js/787.8a068b8c.chunk.js": "/solarkraft-erkunden/static/js/787.8a068b8c.chunk.js",
+    "static/media/RedHatDisplay.ttf": "/solarkraft-erkunden/static/media/RedHatDisplay.b61d49660dc6cb793cb5.ttf",
+    "index.html": "/solarkraft-erkunden/index.html",
+    "main.06f9f1cd.css.map": "/solarkraft-erkunden/static/css/main.06f9f1cd.css.map",
+    "main.40a0323e.js.map": "/solarkraft-erkunden/static/js/main.40a0323e.js.map",
+    "787.8a068b8c.chunk.js.map": "/solarkraft-erkunden/static/js/787.8a068b8c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.06f9f1cd.css",
+    "static/js/main.40a0323e.js"
+  ]
+}
