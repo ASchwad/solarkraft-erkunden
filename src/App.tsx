@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getSolarSystems } from "./api";
 import MetricCard from "./MetricCard";
+import SystemsLineChart from "./SystemsLineChart";
 import { System } from "./types";
 
 
@@ -50,10 +51,12 @@ function App() {
             <MetricCard description="Anzahl angemeldeter PV Anlagen" value={systems.length} icon={null} />
             <MetricCard description="Gesamt Nettonennleistung" value={sumPower + " kW"} icon={null} />
           </div>
+          <div className="h-96 w-full rounded-xl m-4 pt-6 pr-6 pb-16 lg:pb-12 shadow-lg bg-white">
+            <SystemsLineChart systems={systems} />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
