@@ -25,7 +25,6 @@ function App() {
           <p className="max-w-3xl mx-auto text-md text-white">Anwendbar innerhalb Deutschlands. Limitiert auf 5.000 PV Anlagen je Stadt.</p>
         </div>
         <input ref={searchInput} onKeyDown={handleKeyDown} className="rounded-3xl p-3 pl-6 w-80 text-md focus:outline-none" placeholder="Nach welcher Stadt suchst du?"/>
-        {/* <ResultSkeletons/> */}
         <Suspense fallback={<ResultSkeletons/>}>
           <Results city={city} />
         </Suspense>
