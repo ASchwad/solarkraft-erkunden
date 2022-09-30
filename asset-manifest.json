@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/solarkraft-erkunden/static/css/main.1b48e2d8.css",
-    "main.js": "/solarkraft-erkunden/static/js/main.5077c736.js",
+    "main.css": "/solarkraft-erkunden/static/css/main.46e9a888.css",
+    "main.js": "/solarkraft-erkunden/static/js/main.e8a356e7.js",
     "static/js/787.8a068b8c.chunk.js": "/solarkraft-erkunden/static/js/787.8a068b8c.chunk.js",
     "static/media/RedHatDisplay.ttf": "/solarkraft-erkunden/static/media/RedHatDisplay.b61d49660dc6cb793cb5.ttf",
     "index.html": "/solarkraft-erkunden/index.html",
-    "main.1b48e2d8.css.map": "/solarkraft-erkunden/static/css/main.1b48e2d8.css.map",
-    "main.5077c736.js.map": "/solarkraft-erkunden/static/js/main.5077c736.js.map",
+    "main.46e9a888.css.map": "/solarkraft-erkunden/static/css/main.46e9a888.css.map",
+    "main.e8a356e7.js.map": "/solarkraft-erkunden/static/js/main.e8a356e7.js.map",
     "787.8a068b8c.chunk.js.map": "/solarkraft-erkunden/static/js/787.8a068b8c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1b48e2d8.css",
-    "static/js/main.5077c736.js"
+    "static/css/main.46e9a888.css",
+    "static/js/main.e8a356e7.js"
   ]
 }
