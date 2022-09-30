@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { System } from "./types";
+import { System } from "../types";
 interface Dictionary<T> {
   [Key: string]: T;
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { GetSolarSystemsResult } from "./types";
+import { GetSolarSystemsResult, System } from "./types";
 
-export function getSolarSystems(city: string): Promise<GetSolarSystemsResult> {
+export function getSolarSystems(city: string): Promise<System[]> {
   return new Promise((resolve, reject) => {
     const pageSize = 999999
     const sortByKey = "InbetriebnahmeDatum"
@@ -11,8 +11,16 @@ export function getSolarSystems(city: string): Promise<GetSolarSystemsResult> {
 
     axios
       .get(url)
-      .then((result) => {
-        resolve(result.data)
+      .then(({ data } : {data: GetSolarSystemsResult}) => {
+        // The props "InbetriebnahmeDatum" is formated like: "/Date(1664409600000)/"
+        // To leverage this prop as JS date, we create a cleaned version of the array 
+        const cleanedData : System[] = data.Data.map((entry)=> {
+          return {
+            ...entry,
+            CleanedDate: new Date(parseInt(entry.InbetriebnahmeDatum.split("(")[1].split(")")[0]))
+          }
+        })
+        resolve(cleanedData)
       })
      .catch((error) => reject(error));
 

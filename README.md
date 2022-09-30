@@ -1,4 +1,4 @@
-# Solar City
+# Solarkraft erkunden | Explore solar power ☀️
 
 ## Access to Marktstammdatenregister
 Accessing the Register via CURL, Postman and other non-browser tools works. However, submitting the request within the web app / a browser will result in a network error due to [CORS issues](https://www.reddit.com/r/learnjavascript/comments/mdgjw7/axios_get_fails_but_postman_get_is_successful/).

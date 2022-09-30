@@ -1,60 +1,34 @@
-import { useState } from "react";
-import { getSolarSystems } from "./api";
-import MetricCard from "./MetricCard";
-import SystemsLineChart from "./SystemsLineChart";
-import { System } from "./types";
+import { Suspense, useRef, useState } from "react";
+import Results from "./Results/Results";
 
-
-// TODO: Add loading indicator
-// TODO: Add linechart to show the time distribution of the systems
+// TODO: Add proper loading indicator
 function App() {
   const [city, setCity] = useState('')
-  const [systems, setSystems] = useState<System[]>([])
-  const [sumPower, setSumPower] = useState(0)
-  const [newSystems, setNewSystems] = useState(0)
+  const searchInput = useRef<null | HTMLInputElement>(null);
 
-  async function handleClick(){
-    await getSolarSystems(city)
-    .then((data) => {
-      // The props "InbetriebnahmeDatum" is formated like this: "/Date(1664409600000)/"
-      // To leverage this prop as JS date, we create a cleaned version of the array 
-      const cleanedData : System[] = data.Data.map((entry)=> {
-        return {
-          ...entry,
-          CleanedDate: new Date(parseInt(entry.InbetriebnahmeDatum.split("(")[1].split(")")[0]))
-        }
-      })
-      setSystems(cleanedData)
-      setSumPower(Math.floor(data.Data.reduce((sum,item) => sum + item.Nettonennleistung, 0)));
-
-      const beginningYear = new Date()
-      beginningYear.setMonth(0)
-      beginningYear.setDate(0)
-      setNewSystems(cleanedData.filter((entry) => entry.CleanedDate > beginningYear).length)
-    })
+  function handleClick(){
+    searchInput.current?.blur(); // removing focus from input
+    setCity(searchInput.current?.value ?? '')
   }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') handleClick()
+  };
 
   return (
     <div className="h-screen flex items-center bg-gradient-to-b from-yellow-300 via-blue-300 to-indigo-300">
       <div className="max-w-5xl mx-auto px-4 xs:px-6 flex flex-col items-center">
         <div className="text-center pb-8 lg:pb-10">
           <h1 className="text-5xl lg:text-6xl font-extrabold tracking-tighter mb-4">
-            Erkunde die Solarkraft deiner Stadt! ☀️
+            Erkunde die Solarkraft deiner Stadt!
           </h1>
-          <p className="max-w-3xl mx-auto text-xl text-gray-600">Anwendbar innerhalb von Deutschland.</p>
+          <p className="max-w-3xl mx-auto text-xl text-gray-600">Anwendbar innerhalb von Deutschland. Limitiert auf 5.000 PV Anlagen je Stadt.</p>
         </div>
-        <input onChange={(event) => setCity(event.target.value)} value={city} className="rounded-lg p-3 w-96 text-xl" placeholder="z.B. München"></input>
-        <button className="bg-yellow-300 rounded-lg hover:bg-yellow-100 justify-center w-36 mt-4 h-12 flex items-center" type='submit' onClick={() => handleClick()}>Suchen</button>
-        <div className="w-11/12 flex flex-col lg:flex-row mt-10 items-center lg:items-start">
-          <div className="flex flex-row lg:flex-col">
-            <MetricCard description="Neue Systeme dieses Jahr" value={newSystems} icon={null} />
-            <MetricCard description="Anzahl angemeldeter PV Anlagen" value={systems.length} icon={null} />
-            <MetricCard description="Gesamt Nettonennleistung" value={sumPower + " kW"} icon={null} />
-          </div>
-          <div className="h-96 w-full rounded-xl m-4 pt-6 pr-6 pb-16 lg:pb-12 shadow-lg bg-white">
-            <SystemsLineChart systems={systems} />
-          </div>
-        </div>
+        <input ref={searchInput} onKeyDown={handleKeyDown} className="rounded-lg p-3 w-96 text-xl" placeholder="z.B. München"></input>
+        <button className="bg-yellow-300 rounded-lg hover:bg-yellow-100 justify-center w-36 mt-4 h-12 flex items-center" type='submit' onClick={handleClick}>Suchen</button>
+        <Suspense fallback={"LOADING"}>
+          <Results city={city} />
+        </Suspense>
       </div>
     </div>
   );
