@@ -1,5 +1,6 @@
 import { Suspense, useRef, useState } from "react";
 import Results from "./Results/Results";
+import ResultSkeletons from "./Results/ResultSkeletons";
 
 // TODO: Add proper loading indicator
 function App() {
@@ -24,9 +25,7 @@ function App() {
           </h1>
           <p className="max-w-3xl mx-auto text-xl text-gray-600">Anwendbar innerhalb von Deutschland. Limitiert auf 5.000 PV Anlagen je Stadt.</p>
         </div>
-        <input ref={searchInput} onKeyDown={handleKeyDown} className="rounded-lg p-3 w-96 text-xl" placeholder="z.B. München"></input>
-        <button className="bg-yellow-300 rounded-lg hover:bg-yellow-100 justify-center w-36 mt-4 h-12 flex items-center" type='submit' onClick={handleClick}>Suchen</button>
-        <Suspense fallback={"LOADING"}>
+        <Suspense fallback={<ResultSkeletons/>}>
           <Results city={city} />
         </Suspense>
       </div>
