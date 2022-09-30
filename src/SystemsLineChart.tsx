@@ -1,28 +1,38 @@
-import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useEffect, useState } from "react";
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { System } from "./types";
 interface Dictionary<T> {
   [Key: string]: T;
 }
 
 function SystemsLineChart({ systems }: {systems: System[]}) {
-  // Group data by month
-  let sumByYear : Dictionary<number>  = {}
-  systems.forEach((system) => {
-    const year = system.CleanedDate.getFullYear()  
-    if (Object.keys(sumByYear).includes(year.toString())){
-      sumByYear[year] += 1
-    }else{
-      sumByYear[year] = 1
-    }
-  })
-  let prev = 0
-  const sumByMonthArray = Object.entries(sumByYear).map(([key, value]) => {
-    prev += value
-    return ({
-      date: key,
-      value: prev + value
+  const [cumulatedSum, setCumulatedSum] = useState<{ date: string; value: number; }[]>([]);
+
+  useEffect(() => {
+     // Group data by month
+     // Generate hash map for each year and summarize systems
+     // e.g. sumByYear['2020'] = 173
+    const sumByYear : Dictionary<number>  = {}
+    systems.forEach((system) => {
+      const year = system.CleanedDate.getFullYear()
+      if (Object.keys(sumByYear).includes(year.toString())){
+        sumByYear[year] += 1
+      }else{
+        sumByYear[year] = 1
+      }
     })
-  })
+    let prev = 0
+    // Generate the cumulated sum of each year and transform in format for LineChart
+     // e.g. cumulatedSumByYearArray[0] = {"date": "2020", value: 1732}
+    const cumulatedSumByYearArray = Object.entries(sumByYear).map(([key, value]) => {
+      prev += value
+      return ({
+        date: key,
+        value: prev
+      })
+    })
+    setCumulatedSum(cumulatedSumByYearArray)
+  }, [systems])
 
   return (
     <>
@@ -30,7 +40,7 @@ function SystemsLineChart({ systems }: {systems: System[]}) {
         <AreaChart
           width={500}
           height={500}
-          data={sumByMonthArray}
+          data={cumulatedSum}
           margin={{
             top: 5,
             right: 30,
@@ -42,8 +52,7 @@ function SystemsLineChart({ systems }: {systems: System[]}) {
           <XAxis dataKey="date" />
           <YAxis />
           <Tooltip labelFormatter={(value) => "Jahr: " + value} />
-          <Line type="monotone" dataKey="value" stroke="black" activeDot={{ r: 4 }} />
-          <Area type="monotone" dataKey="value" strokeWidth={0.5} stroke="black" fill="#FDE047" fillOpacity={1} />
+          <Area type="monotone" dataKey="value" strokeWidth={4} stroke="#FFC658" fill="#FDE047" fillOpacity={1} />
 
         </AreaChart>
       </ResponsiveContainer>
