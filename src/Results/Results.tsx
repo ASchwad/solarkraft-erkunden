@@ -3,6 +3,7 @@ import { getSolarSystems } from "../api";
 import SystemsLineChart from "./SystemsLineChart";
 import { useQuery } from 'react-query'
 import Metrics from "./Metrics";
+import NoResults from "./NoResults";
 
 function Results({ city }: {city: string}) {
   const { data: systems } = useQuery(["getSystems", city], () => getSolarSystems(city), {
@@ -10,7 +11,7 @@ function Results({ city }: {city: string}) {
   })
 
   if(systems === undefined) return null
-  if(systems.length === 0) return <p>Keine Ergebnisse für "{city}"</p>
+  if(systems.length === 0) return <NoResults city={city}/>
   
   return (
     <div className="w-11/12 flex flex-col lg:flex-row mt-10 items-center lg:items-start">
