@@ -14,9 +14,9 @@ function Results({ city }: {city: string}) {
   if(systems.length === 0) return <NoResults city={city}/>
   
   return (
-    <div className="w-11/12 flex flex-col lg:flex-row mt-10 items-center lg:items-start">
+    <div className="w-11/12 flex flex-col lg:flex-row mt-10 items-start">
       <Metrics systems={systems ?? []} />
-      <div className="h-96 w-full rounded-xl m-4 pt-6 pr-6 pb-16 lg:pb-12 shadow-lg bg-white">
+      <div className="h-96 rounded-xl m-2 lg:m-4 pt-6 pb-16 lg:pb-12 shadow-lg bg-white">
         <SystemsLineChart systems={systems ?? []} />
       </div>
     </div>

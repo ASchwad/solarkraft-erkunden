@@ -17,10 +17,10 @@ function Metrics({ systems }: {systems: System[]}) {
 
   return (
     <div className="flex flex-row lg:flex-col">
-        <MetricCard description="Neue PV Anlagen dieses Jahr" value={newSystems} icon={null} />
-        <MetricCard description="Gesamt Anzahl PV Anlagen" value={systems.length} icon={null} />
-        <MetricCard description="Gesamt Nettonennleistung" value={sumPower + " kW"} icon={null} />
-      </div>
+      <MetricCard description="Neue PV Anlagen dieses Jahr" value={newSystems} icon={null} />
+      <MetricCard description="Gesamt Anzahl PV Anlagen" value={systems.length} icon={null} />
+      <MetricCard description="Gesamt Nettonennleistung" value={sumPower + " kW"} icon={null} />
+    </div>
   );
 }
 
