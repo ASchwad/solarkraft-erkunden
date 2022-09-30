@@ -49,10 +49,10 @@ function SystemsLineChart({ systems }: {systems: System[]}) {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
+          <XAxis dataKey="date" style={{ fontSize: 12, color: "black" }} />
+          <YAxis style={{ fontSize: 12, color: "black" }} />
           <Tooltip labelFormatter={(value) => "Jahr: " + value} />
-          <Area type="monotone" dataKey="value" strokeWidth={4} stroke="#FFC658" fill="#FDE047" fillOpacity={1} />
+          <Area type="monotone" dataKey="value" strokeWidth={2} stroke="#F27405" fill="#F28705" fillOpacity={0.6} />
 
         </AreaChart>
       </ResponsiveContainer>
