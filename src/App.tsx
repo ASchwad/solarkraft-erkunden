@@ -22,7 +22,7 @@ function App() {
           <h1 className="text-3xl lg:text-6xl font-extrabold tracking-tighter mb-2 text-white">
             Erkunde die Solarkraft deiner Stadt!
           </h1>
-          <p className="max-w-3xl mx-auto text-md text-white">Anwendbar innerhalb Deutschlands. Limitiert auf 5.000 PV Anlagen je Stadt.</p>
+          <p className="max-w-3xl mx-auto text-md text-white">Anwendbar für deutsche Städte.</p>
         </div>
         <input ref={searchInput} onKeyDown={handleKeyDown} className="rounded-3xl p-3 pl-6 w-80 text-md focus:outline-none" placeholder="Nach welcher Stadt suchst du?"/>
         <Suspense fallback={<ResultSkeletons/>}>
