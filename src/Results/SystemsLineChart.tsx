@@ -1,37 +1,28 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { System } from "../types";
-interface Dictionary<T> {
-  [Key: string]: T;
-}
 
 function SystemsLineChart({ systems }: {systems: System[]}) {
-  const [cumulatedSum, setCumulatedSum] = useState<{ date: string; value: number; }[]>([]);
-
-  useEffect(() => {
+  const cumulatedSum = useMemo(() => {
      // Group data by month
      // Generate hash map for each year and summarize systems
      // e.g. sumByYear['2020'] = 173
-    const sumByYear : Dictionary<number>  = {}
-    systems.forEach((system) => {
-      const year = system.CleanedDate.getFullYear()
-      if (Object.keys(sumByYear).includes(year.toString())){
-        sumByYear[year] += 1
-      }else{
-        sumByYear[year] = 1
-      }
-    })
-    let prev = 0
-    // Generate the cumulated sum of each year and transform in format for LineChart
-     // e.g. cumulatedSumByYearArray[0] = {"date": "2020", value: 1732}
-    const cumulatedSumByYearArray = Object.entries(sumByYear).map(([key, value]) => {
-      prev += value
-      return ({
-        date: key,
-        value: prev
-      })
-    })
-    setCumulatedSum(cumulatedSumByYearArray)
+     const sumByYear = systems.reduce((acc, system) => {
+       const year = system.CleanedDate.getFullYear()
+       acc[year] = (acc[year] ?? 0) + 1
+       return acc
+     }, {} as Record<string, number> )
+
+     let prev = 0
+     // Generate the cumulated sum of each year and transform in format for LineChart
+      // e.g. cumulatedSumByYearArray[0] = {"date": "2020", value: 1732}
+     return Object.entries(sumByYear).map(([key, value]) => {
+       prev += value
+       return ({
+         date: key,
+         value: prev
+       })
+     })
   }, [systems])
 
   return (
@@ -53,7 +44,6 @@ function SystemsLineChart({ systems }: {systems: System[]}) {
           <YAxis style={{ fontSize: 12, color: "black" }} />
           <Tooltip labelFormatter={(value) => "Jahr: " + value} />
           <Area type="monotone" dataKey="value" strokeWidth={2} stroke="#F27405" fill="#F28705" fillOpacity={0.6} />
-
         </AreaChart>
       </ResponsiveContainer>
       <p className="text-center text-sm px-5">Anzahl der in Betrieb genommenen (und immer noch im Betrieb befindlichen) Photovoltaik Anlagen pro Jahr.</p>

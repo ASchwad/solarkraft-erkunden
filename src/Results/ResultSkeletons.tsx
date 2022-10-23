@@ -15,8 +15,8 @@ function ResultSkeletons() {
         ))}
       </div>
       <div className="w-full lg:w-full h-64 lg:h-96 p-6 m-2 bg-white animate-pulse rounded-md mx-auto shadow-lg">
-          <div className="w-full lg:w-full h-44 lg:h-80 bg-gray-300 mb-3" />
-          <div className="w-fulllg:w-full h-5 bg-gray-300 mb-3" />
+        <div className="w-full lg:w-full h-44 lg:h-80 bg-gray-300 mb-3" />
+        <div className="w-fulllg:w-full h-5 bg-gray-300 mb-3" />
       </div>
     </div>
   );

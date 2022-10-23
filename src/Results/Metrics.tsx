@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { System } from "../types";
 import MetricCard from "./MetricCard";
 
 function Metrics({ systems }: {systems: System[]}) {
-  const [sumPower, setSumPower] = useState(0)
-  const [newSystems, setNewSystems] = useState(0)
+  const sumPower = useMemo(() => {
+    return Math.floor(systems.reduce((sum,item) => sum + item.Nettonennleistung, 0))
+  }, [systems])
 
-  useEffect(() => {
-    setSumPower(Math.floor(systems.reduce((sum,item) => sum + item.Nettonennleistung, 0)));
-
+  const newSystems = useMemo(() => {
     const beginningYear = new Date()
     beginningYear.setMonth(0)
     beginningYear.setDate(0)
-    setNewSystems(systems.filter((entry) => entry.CleanedDate > beginningYear).length)
+    return(systems.filter((entry) => entry.CleanedDate > beginningYear).length)
   }, [systems])
 
   return (
